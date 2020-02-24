@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
-#include "clibext.h"
+
 
 /*********************************************************/
 /*            Declaraciones de las funciones             */
@@ -65,7 +65,7 @@ int esLetra(char ch) {
  */
 void volverMayuscula(char *ch) {
   // Coloque el codigo solucion a continuacion...
-  strupr(ch);
+  putchar(toupper(ch));
 
 }
 
