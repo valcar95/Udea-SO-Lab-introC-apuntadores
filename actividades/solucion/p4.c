@@ -1,6 +1,6 @@
-#include <string.h>
 #include <stdio.h>
-#include <ctype.h>
+#include "shared.h"
+#include <stdlib.h>
 
 
 /*********************************************************/
@@ -24,70 +24,23 @@ void stringToMayuscula(char s[]);
 
 
 int main(void) {
-  testVolverMayuscula();
-  testEsLetra();
-  testStringToMayuscula();
+  
+  while(1){
+    int size=1000;
+    char str[1000];
+    printf("\nDigite el string: ");
+    fgets(str, size, stdin);
+    stringToMayuscula(str);
+    printf("\nSalida: %s\n", str);
+  }
   return 0;
 }
-
-/*********************************************************/
-/*            Declaraciones de las funciones             */
-/*********************************************************/
-
-
-/* Funciones del programa */
-int esLetra(char ch);
-void volverMayuscula(char *ch);
-void stringToMayuscula(char s[]);
 
 /*********************************************************/
 /*             Definiciones de las funciones             */
 /*********************************************************/
 
-/* Funciones del programa */
-
-/**  
- *   @brief  Determina si un caracter alfabetico
- *  
- *   @param  ch es el caracter a verificar
- *   @return 1 si el caracter es una letra del alfabeto y 0 si es otro simbolo.
- */
-int esLetra(char ch) {
-  // Coloque el codigo solucion a continuacion...
-  return isalpha(ch);
-}
-
-/**  
- *   @brief  Convierte un caracter en mayuscula
- *  
- *   @param  ch es el caracter ingresado
- *   @return void
- */
-void volverMayuscula(char *ch) {
-  // Coloque el codigo solucion a continuacion...
-  putchar(toupper(ch));
-
-}
-
-
-/**  
- *   @brief  Convierte en mayusculas la cadena de caracteres ingresada.
- *  
- *   @param  s es una cadena de caracteres ingresada y la cual despues del proceso en la función tendra los caracteres en mayuscula.
- *   @return void
- */
-
-void stringToMayuscula(char s[]) {
-  // Coloque el codigo solucion a continuacion...
-  char *ptrs = s;
-  while(*ptrs != EOF){
-      if(esLetra(*ptrs)==1){
-          volverMayuscula(ptrs);
-      }
-  }
-  printf("Resultado: %s", s);
-
-}
+/* Funciones de test */
 
 /**  
  *   @brief  Funcion para testear volverMayuscula
@@ -105,7 +58,12 @@ void testVolverMayuscula(void) {
   printf("Mayusculas -> %c, %c\n", l1, *p_char);
 }
 
- 
+/**  
+ *   @brief  Funcion para testear esLetra
+ *  
+ *   @param  void
+ *   @return void
+ */
 void testEsLetra(void) {
   char c1 = '!', c2 = 's';
   printf("%c -> %d\n", c1, esLetra(c1));
@@ -124,3 +82,33 @@ void testStringToMayuscula(void) {
   printf("cadena 1: %s\n", s1);
   printf("cadena 2: %s\n", s2);
 }
+
+int esLetra(char ch){
+  char str1[28] = "abcdefghijklmnñopqrstuvwxyz";
+  char str2[28] = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+  if(obtenerIndice(str1,ch)>-1 || obtenerIndice(str2,ch)>-1){
+    return 1;
+  }
+  return -1;
+}
+
+void volverMayuscula(char *ch){
+  char str1[28] = "abcdefghijklmnñopqrstuvwxyz";
+  char str2[28] = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+  int indice=obtenerIndice(str1,*ch);
+  if(indice>-1){
+    *ch=str2[indice];
+  }
+}
+
+void stringToMayuscula(char s[]){
+  char *p=s;
+  while (*p != '\0'){
+     volverMayuscula(p);
+     p++;
+   }
+}
+
+/* Funciones del programa */
+
+/* Codigo ya implementado en la fase 1...*/
